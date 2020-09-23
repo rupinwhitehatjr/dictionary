@@ -7,6 +7,7 @@ import re
 import uuid
 import pickle
 import os.path
+import string
 allowed=["dictionary"]
 
 def main():
@@ -23,6 +24,12 @@ def main():
 	
 	#xlFile.save("Championship Questions V2.xlsx")
 
+def formatString(keyname):
+	retval=""
+	for newkey in keyname:
+		if(newkey.isalpha()):
+				retval=retval+newkey
+	return retval	
 
 
 def generateJSON(fileref, shtname):
@@ -30,14 +37,16 @@ def generateJSON(fileref, shtname):
 
 	
 	rowStart=2
-	rowEnd=30
+	rowEnd=54553
 	#rows=122
 	offset=1
 	myDict={}
 	#firstWord=""
 	for row in range(rowStart,rowEnd):
+		print(row)
 		word=sheet.cell(row, offset+0).value
 		word=word.lower()
+		word=formatString(word)
 		definition= sheet.cell(row, offset+2).value  
 		blankObject={} 
 		if (word in myDict): 
