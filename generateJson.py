@@ -37,7 +37,7 @@ def generateJSON(fileref, shtname):
 
 	
 	rowStart=2
-	rowEnd=54553
+	rowEnd=51690
 	#rows=122
 	offset=1
 	myDict={}
@@ -47,16 +47,25 @@ def generateJSON(fileref, shtname):
 		word=sheet.cell(row, offset+0).value
 		word=word.lower()
 		word=formatString(word)
-		definition= sheet.cell(row, offset+2).value  
+		definition= sheet.cell(row, offset+2).value 
+		wordtype= sheet.cell(row, offset+1).value 
 		blankObject={} 
 		if (word in myDict): 
 			blankObject=myDict[word]
 			#blankObject["definitions"]=[]
-			blankObject["definitions"].append(definition)
+			wordMeta={}
+			wordMeta["wordtype"]=wordtype
+			wordMeta["description"]=definition
+
+			blankObject["definitions"].append(wordMeta)
 			myDict[word] = blankObject
 		else: 
 			blankObject["definitions"]=[]
-			blankObject["definitions"].append(definition)
+			wordMeta={}
+			wordMeta["wordtype"]=wordtype
+			wordMeta["description"]=definition
+
+			blankObject["definitions"].append(wordMeta)
 			myDict[word] = blankObject
 
 	for key, value in myDict.items():
